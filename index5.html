@@ -4,188 +4,79 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KG Player</title>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.10.1/dist/video-js.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/video.js@7.10.1/dist/video.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/videojs-youtube@2.6.1/dist/Youtube.min.js"></script>
-  <link href="//players.brightcove.net/videojs-quality-menu/1/videojs-quality-menu.css" rel="stylesheet">
-  <script src="//players.brightcove.net/videojs-quality-menu/1/videojs-quality-menu.min.js"></script>
-
   <style>
     body {
-      background: linear-gradient(to right, #141e30, #243b55);
-      color: #ffffff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    .header {
-      background: #000000aa;
-      padding: 20px;
+      background-color: #f0f0f0;
+      color: #333;
+      font-family: Arial, sans-serif;
       text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      padding: 30px;
     }
 
-    .logo a {
-      color: #00f0ff;
-      font-weight: bold;
-      font-size: 2.8em;
-      text-decoration: none;
-      text-shadow: 0 0 10px #00f0ff;
-      transition: color 0.3s;
-    }
-
-    .logo a:hover {
-      color: #ffffff;
-      text-shadow: 0 0 15px #ffffff;
-    }
-
-    .video-js {
-      margin: 30px auto;
-      border: 3px solid #00f0ff;
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
-      border-radius: 10px;
-    }
-
-    #instructions {
-      max-width: 700px;
-      margin: 2em auto;
-      text-align: left;
-      padding: 20px;
+    h1 {
+      font-size: 48px;
+      color: #0066cc;
+      margin-bottom: 20px;
     }
 
     input[type="text"] {
-      width: 100%;
-      padding: 0.6em;
-      font-size: 1em;
-      margin-bottom: 10px;
-      border: 1px solid #444;
-      border-radius: 6px;
+      padding: 10px;
+      width: 70%;
+      max-width: 500px;
+      font-size: 16px;
+      border: 2px solid #0066cc;
+      border-radius: 8px;
+      margin-bottom: 15px;
     }
 
-    input[type="submit"] {
-      padding: 0.5em 1em;
-      background-color: #00f0ff;
-      color: #000;
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #0066cc;
+      color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: bold;
+      margin-left: 10px;
     }
 
-    input[type="submit"]:hover {
-      background-color: #00c2d3;
+    .video-container {
+      margin-top: 30px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    ul#vidlink li {
-      margin-bottom: 8px;
-    }
-
-    ul#vidlink li a {
-      color: #76DAFF;
-      text-decoration: none;
-    }
-
-    ul#vidlink li a:hover {
-      text-decoration: underline;
+    video {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
   </style>
 </head>
-
 <body>
-  <header class="header">
-    <h1 class="logo"><a href="#">KG Player</a></h1>
-  </header>
+  <h1>KG Player</h1>
 
-  <div id="instructions">
-    <video
-      id="vid1"
-      class="video-js vjs-default-skin vjs-fluid"
-      poster="http://i.imgur.com/xxqm7EE.png"
-      width="640"
-      height="360"
-      controls
-      autoplay
-      preload="none"
-      data-setup='{
-        "techOrder": ["html5", "flash", "youtube"],
-        "sources": [{
-          "type": "application/x-mpegURL",
-          "src": "https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8"
-        }]
-      }'
-    ></video>
+  <div>
+    <input type="text" id="videoLink" placeholder="Paste your video link here (.mp4, .m3u8 etc.)" />
+    <button onclick="loadVideo()">Play</button>
+  </div>
 
-    <h2>Load Video:</h2>
-    <form id="vsg-loadvideo">
-      <input
-        type="text"
-        name="vidurl"
-        id="vsg-vurl"
-        value="https://www.youtube.com/watch?v=xDMP3i36naA"
-        placeholder="Enter video URL (e.g. YouTube, .mp4, .m3u8)"
-      />
-      <input type="submit" value="Load video" />
-    </form>
-
-    <ul id="vidlink">
-      <li><a href="http://jplayer.org/video/m4v/Incredibles_Teaser.m4v">Play .M4V</a></li>
-      <li><a href="//assets3.ign.com/videos/zencoder/2016/06/15/640/7080c56a76e2b74ec8ecfe4c224441d4-500000-1466028542-w.mp4">Play .MP4</a></li>
-      <li><a href="https://www.youtube.com/watch?v=kkGeOWYOFoA">Play YouTube</a></li>
-      <li><a href="https://yt-dash-mse-test.commondatastorage.googleapis.com/media/car-20120827-manifest.mpd">Play Dash (.mpd)</a></li>
-      <li><a href="http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v">Play .M4V</a></li>
-      <li><a href="http://jplayer.org/video/webm/Big_Buck_Bunny_Trailer.webm">Play .webm</a></li>
-      <li><a href="https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8">Play .m3u8 streaming</a></li>
-    </ul>
+  <div class="video-container">
+    <video id="videoPlayer" controls autoplay>
+      <source src="https://www.youtube.com/embed/QxYq4j9C9WE" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </div>
 
   <script>
-    var vgsPlayer = videojs('vid1');
-    vgsPlayer.qualityMenu();
-    vgsPlayer.poster('https://img.youtube.com/vi/aqz-KE-bpKQ/maxresdefault.jpg');
-
-    $('#vidlink li a').on('click', function (e) {
-      e.preventDefault();
-      var vidlink = $(this).attr('href');
-      $('#vsg-vurl').val(vidlink);
-      $('input[type=submit]').click();
-    });
-
-    $("#vsg-loadvideo").submit(function (e) {
-      e.preventDefault();
-      var vidURL = $("#vsg-vurl").val();
-      vsgLoadVideo(vidURL);
-    });
-
-    function vsgLoadVideo(vidURL, poster) {
-      var type = getType(vidURL);
-      if (getId(vidURL))
-        poster = "http://img.youtube.com/vi/" + getId(vidURL) + "/hqdefault.jpg";
-      vgsPlayer.src({ "src": vidURL, "type": type });
-      vgsPlayer.httpSourceSelector();
-      vgsPlayer.poster(poster || "//i.imgur.com/aE0LoTe.png");
-      vgsPlayer.play();
-      return false;
-    }
-
-    function getId(url) {
-      var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-      var match = url.match(regExp);
-      return (match && match[2].length == 11) ? match[2] : false;
-    }
-
-    function getType(url) {
-      if (/\\.(mp3|m4a)$/i.test(url)) return 'audio/mpeg';
-      if (/\\.ogg/.test(url)) return 'audio/ogg';
-      if (/\\.mpd/.test(url)) return 'application/dash+xml';
-      if (/^rtmp:\\/\\//.test(url)) return 'rtmp/mp4';
-      if (/\\.m3u8/.test(url)) return 'application/x-mpegurl';
-      if (/\\.(mp4|m4p|m4v|mov)/i.test(url)) return 'video/mp4';
-      if (/\\.webm/.test(url)) return 'video/webm';
-      if (/youtu/.test(url)) return 'video/youtube';
-      return 'video/mp4';
+    function loadVideo() {
+      const link = document.getElementById("videoLink").value;
+      const video = document.getElementById("videoPlayer");
+      video.src = link;
+      video.load();
+      video.play();
     }
   </script>
 </body>
