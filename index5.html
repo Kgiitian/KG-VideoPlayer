@@ -1,207 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KG Player</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KG Player</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.10.1/dist/video-js.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/video.js@7.10.1/dist/video.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/videojs-youtube@2.6.1/dist/Youtube.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.10.1/dist/video-js.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/video.js@7.10.1/dist/video.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-youtube@2.6.1/dist/Youtube.min.js"></script>
+  <link href="//players.brightcove.net/videojs-quality-menu/1/videojs-quality-menu.css" rel="stylesheet">
+  <script src="//players.brightcove.net/videojs-quality-menu/1/videojs-quality-menu.min.js"></script>
 
-    <link href="//players.brightcove.net/videojs-quality-menu/1/videojs-quality-menu.css" rel="stylesheet">
-    <script src="//players.brightcove.net/videojs-quality-menu/1/videojs-quality-menu.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #141e30, #243b55);
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
-    <style>
-      body {
-        background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-        text-align: center;
-        color: #f2f2f2;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
+    .header {
+      background: #000000aa;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
 
-      .header {
-        background-color: #1e1e1e;
-        padding: 1em 0;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-      }
+    .logo a {
+      color: #00f0ff;
+      font-weight: bold;
+      font-size: 2.8em;
+      text-decoration: none;
+      text-shadow: 0 0 10px #00f0ff;
+      transition: color 0.3s;
+    }
 
-      .logo a {
-        font-size: 2em;
-        color: #00eaff;
-        font-weight: bold;
-        text-decoration: none;
-        letter-spacing: 2px;
-      }
+    .logo a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 15px #ffffff;
+    }
 
-      .main-nav {
-        margin-top: 10px;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
+    .video-js {
+      margin: 30px auto;
+      border: 3px solid #00f0ff;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+      border-radius: 10px;
+    }
 
-      .main-nav a {
-        color: #cccccc;
-        padding: 10px 15px;
-        font-size: 0.95em;
-        text-transform: uppercase;
-        text-decoration: none;
-      }
+    #instructions {
+      max-width: 700px;
+      margin: 2em auto;
+      text-align: left;
+      padding: 20px;
+    }
 
-      .main-nav a:hover {
-        color: #00eaff;
-      }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.6em;
+      font-size: 1em;
+      margin-bottom: 10px;
+      border: 1px solid #444;
+      border-radius: 6px;
+    }
 
-      #instructions {
-        max-width: 700px;
-        margin: 2em auto;
-        text-align: left;
-      }
+    input[type="submit"] {
+      padding: 0.5em 1em;
+      background-color: #00f0ff;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-      input[type="text"] {
-        width: 100%;
-        padding: 0.6em;
-        font-size: 1em;
-        margin-bottom: 10px;
-        border: 1px solid #444;
-        border-radius: 6px;
-      }
+    input[type="submit"]:hover {
+      background-color: #00c2d3;
+    }
 
-      input[type="submit"] {
-        padding: 0.5em 1em;
-        background-color: #00eaff;
-        color: #000;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: bold;
-      }
+    ul#vidlink li {
+      margin-bottom: 8px;
+    }
 
-      input[type="submit"]:hover {
-        background-color: #00c2d3;
-      }
+    ul#vidlink li a {
+      color: #76DAFF;
+      text-decoration: none;
+    }
 
-      ul#vidlink li {
-        margin-bottom: 8px;
-      }
+    ul#vidlink li a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
 
-      ul#vidlink li a {
-        color: #76DAFF;
-        text-decoration: none;
-      }
+<body>
+  <header class="header">
+    <h1 class="logo"><a href="#">KG Player</a></h1>
+  </header>
 
-      ul#vidlink li a:hover {
-        text-decoration: underline;
-      }
-    </style>
-  </head>
+  <div id="instructions">
+    <video
+      id="vid1"
+      class="video-js vjs-default-skin vjs-fluid"
+      poster="http://i.imgur.com/xxqm7EE.png"
+      width="640"
+      height="360"
+      controls
+      autoplay
+      preload="none"
+      data-setup='{
+        "techOrder": ["html5", "flash", "youtube"],
+        "sources": [{
+          "type": "application/x-mpegURL",
+          "src": "https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8"
+        }]
+      }'
+    ></video>
 
-  <body>
-    <header class="header">
-      <h1 class="logo"><a href="#">KG Player</a></h1>
-      <ul class="main-nav">
-        <li><a href="./index.html">Quality selector</a></li>
-        <li><a href="./index2.html">Quality selector 2</a></li>
-        <li><a href="./index3.html">Load url</a></li>
-        <li><a href="./index4.html">Playlist</a></li>
-        <li><a href="./index5.html">Dynamic player</a></li>
-        <li><a href="./index6.html">Quality selector <sub>(No plugins)</sub></a></li>
-      </ul>
-    </header>
+    <h2>Load Video:</h2>
+    <form id="vsg-loadvideo">
+      <input
+        type="text"
+        name="vidurl"
+        id="vsg-vurl"
+        value="https://www.youtube.com/watch?v=xDMP3i36naA"
+        placeholder="Enter video URL (e.g. YouTube, .mp4, .m3u8)"
+      />
+      <input type="submit" value="Load video" />
+    </form>
 
-    <div id="instructions">
-      <video
-        id="vid1"
-        class="video-js vjs-default-skin vjs-fluid"
-        poster="http://i.imgur.com/xxqm7EE.png"
-        width="640"
-        height="360"
-        controls
-        autoplay
-        preload="none"
-        data-setup='{
-          "techOrder": ["html5", "flash", "youtube"],
-          "sources": [{
-            "type": "application/x-mpegURL",
-            "src": "https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8"
-          }]
-        }'
-      ></video>
+    <ul id="vidlink">
+      <li><a href="http://jplayer.org/video/m4v/Incredibles_Teaser.m4v">Play .M4V</a></li>
+      <li><a href="//assets3.ign.com/videos/zencoder/2016/06/15/640/7080c56a76e2b74ec8ecfe4c224441d4-500000-1466028542-w.mp4">Play .MP4</a></li>
+      <li><a href="https://www.youtube.com/watch?v=kkGeOWYOFoA">Play YouTube</a></li>
+      <li><a href="https://yt-dash-mse-test.commondatastorage.googleapis.com/media/car-20120827-manifest.mpd">Play Dash (.mpd)</a></li>
+      <li><a href="http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v">Play .M4V</a></li>
+      <li><a href="http://jplayer.org/video/webm/Big_Buck_Bunny_Trailer.webm">Play .webm</a></li>
+      <li><a href="https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8">Play .m3u8 streaming</a></li>
+    </ul>
+  </div>
 
-      <h2>Load Video:</h2>
-      <form id="vsg-loadvideo">
-        <input
-          type="text"
-          name="vidurl"
-          id="vsg-vurl"
-          value="https://www.youtube.com/watch?v=xDMP3i36naA"
-          placeholder="Enter video URL (e.g. YouTube, .mp4, .m3u8)"
-        />
-        <input type="submit" value="Load video" />
-      </form>
+  <script>
+    var vgsPlayer = videojs('vid1');
+    vgsPlayer.qualityMenu();
+    vgsPlayer.poster('https://img.youtube.com/vi/aqz-KE-bpKQ/maxresdefault.jpg');
 
-      <ul id="vidlink">
-        <li><a href="http://jplayer.org/video/m4v/Incredibles_Teaser.m4v">Play .M4V</a></li>
-        <li><a href="//assets3.ign.com/videos/zencoder/2016/06/15/640/7080c56a76e2b74ec8ecfe4c224441d4-500000-1466028542-w.mp4">Play .MP4</a></li>
-        <li><a href="https://www.youtube.com/watch?v=kkGeOWYOFoA">Play Youtube</a></li>
-        <li><a href="https://yt-dash-mse-test.commondatastorage.googleapis.com/media/car-20120827-manifest.mpd">Play Dash (.mpd)</a></li>
-        <li><a href="http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v">Play .M4V</a></li>
-        <li><a href="http://jplayer.org/video/webm/Big_Buck_Bunny_Trailer.webm">Play .webm</a></li>
-        <li><a href="https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8">Play .m3u8 streaming</a></li>
-      </ul>
-    </div>
+    $('#vidlink li a').on('click', function (e) {
+      e.preventDefault();
+      var vidlink = $(this).attr('href');
+      $('#vsg-vurl').val(vidlink);
+      $('input[type=submit]').click();
+    });
 
-    <script>
-      var vgsPlayer = videojs('vid1');
-      vgsPlayer.qualityMenu();
-      vgsPlayer.poster('https://img.youtube.com/vi/aqz-KE-bpKQ/maxresdefault.jpg');
+    $("#vsg-loadvideo").submit(function (e) {
+      e.preventDefault();
+      var vidURL = $("#vsg-vurl").val();
+      vsgLoadVideo(vidURL);
+    });
 
-      $('#vidlink li a').on('click', function (e) {
-        e.preventDefault();
-        var vidlink = $(this).attr('href');
-        $('#vsg-vurl').val(vidlink);
-        $('input[type=submit]').click();
-      });
+    function vsgLoadVideo(vidURL, poster) {
+      var type = getType(vidURL);
+      if (getId(vidURL))
+        poster = "http://img.youtube.com/vi/" + getId(vidURL) + "/hqdefault.jpg";
+      vgsPlayer.src({ "src": vidURL, "type": type });
+      vgsPlayer.httpSourceSelector();
+      vgsPlayer.poster(poster || "//i.imgur.com/aE0LoTe.png");
+      vgsPlayer.play();
+      return false;
+    }
 
-      $("#vsg-loadvideo").submit(function (e) {
-        e.preventDefault();
-        var vidURL = $("#vsg-vurl").val();
-        vsgLoadVideo(vidURL);
-      });
+    function getId(url) {
+      var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+      var match = url.match(regExp);
+      return (match && match[2].length == 11) ? match[2] : false;
+    }
 
-      function vsgLoadVideo(vidURL, poster) {
-        var type = getType(vidURL);
-        if (getId(vidURL))
-          poster = "http://img.youtube.com/vi/" + getId(vidURL) + "/hqdefault.jpg";
-
-        vgsPlayer.src({ "src": vidURL, "type": type });
-        vgsPlayer.httpSourceSelector();
-        vgsPlayer.poster(poster || "//i.imgur.com/aE0LoTe.png");
-        vgsPlayer.play();
-        return false;
-      }
-
-      function getId(url) {
-        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-        var match = url.match(regExp);
-        return (match && match[2].length == 11) ? match[2] : false;
-      }
-
-      function getType(url) {
-        if (/\.(mp3|m4a)$/i.test(url)) return 'audio/mpeg';
-        if (/\.ogg/.test(url)) return 'audio/ogg';
-        if (/\.mpd/.test(url)) return 'application/dash+xml';
-        if (/^rtmp:\/\//.test(url)) return 'rtmp/mp4';
-        if (/\.m3u8/.test(url)) return 'application/x-mpegurl';
-        if (/\.(mp4|m4p|m4v|mov)/i.test(url)) return 'video/mp4';
-        if (/\.webm/.test(url)) return 'video/webm';
-        if (/youtu/.test(url)) return 'video/youtube';
-        return 'video/mp4';
-      }
-    </script>
-  </body>
+    function getType(url) {
+      if (/\\.(mp3|m4a)$/i.test(url)) return 'audio/mpeg';
+      if (/\\.ogg/.test(url)) return 'audio/ogg';
+      if (/\\.mpd/.test(url)) return 'application/dash+xml';
+      if (/^rtmp:\\/\\//.test(url)) return 'rtmp/mp4';
+      if (/\\.m3u8/.test(url)) return 'application/x-mpegurl';
+      if (/\\.(mp4|m4p|m4v|mov)/i.test(url)) return 'video/mp4';
+      if (/\\.webm/.test(url)) return 'video/webm';
+      if (/youtu/.test(url)) return 'video/youtube';
+      return 'video/mp4';
+    }
+  </script>
+</body>
 </html>
