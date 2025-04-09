@@ -5,17 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KG Player</title>
   <style>
+    :root {
+      --bg-color: #f0f0f0;
+      --text-color: #333;
+      --accent-color: #0066cc;
+    }
+
     body {
-      background-color: #f0f0f0;
-      color: #333;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       font-family: Arial, sans-serif;
       text-align: center;
       padding: 30px;
+      transition: 0.3s ease all;
     }
 
     h1 {
       font-size: 48px;
-      color: #0066cc;
+      color: var(--accent-color);
       margin-bottom: 20px;
     }
 
@@ -24,7 +31,7 @@
       width: 70%;
       max-width: 500px;
       font-size: 16px;
-      border: 2px solid #0066cc;
+      border: 2px solid var(--accent-color);
       border-radius: 8px;
       margin-bottom: 15px;
     }
@@ -32,12 +39,13 @@
     button {
       padding: 10px 20px;
       font-size: 16px;
-      background-color: #0066cc;
+      background-color: var(--accent-color);
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       margin-left: 10px;
+      transition: 0.2s;
     }
 
     .video-container {
@@ -53,14 +61,41 @@
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
+
+    .controls {
+      margin-top: 20px;
+    }
+
+    .dark-mode {
+      --bg-color: #111;
+      --text-color: #eee;
+      --accent-color: #00ccff;
+    }
+
+    .telegram-btn {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 10px 25px;
+      background-color: #229ED9;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .telegram-btn:hover {
+      background-color: #1c90c7;
+    }
   </style>
 </head>
 <body>
   <h1>KG Player</h1>
 
-  <div>
+  <div class="controls">
     <input type="text" id="videoLink" placeholder="Paste your video link here (.mp4, .m3u8 etc.)" />
     <button onclick="loadVideo()">Play</button>
+    <button onclick="toggleDarkMode()">🌙 Night/Day</button>
   </div>
 
   <div class="video-container">
@@ -70,6 +105,8 @@
     </video>
   </div>
 
+  <a class="telegram-btn" href="https://t.me/kgxai" target="_blank">💬 Message Me on Telegram</a>
+
   <script>
     function loadVideo() {
       const link = document.getElementById("videoLink").value;
@@ -77,6 +114,10 @@
       video.src = link;
       video.load();
       video.play();
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
     }
   </script>
 </body>
